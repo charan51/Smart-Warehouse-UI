@@ -5,14 +5,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./components/protectedRoute";
 import { Provider } from "react-redux";
 import store from "./redux/store";
-const isAuthenticated = () => {
-  console.log( localStorage.getItem('authToken') )
-  return localStorage.getItem('authToken') !== null;
-};
+
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <PrivateRoute isAuthenticated={isAuthenticated()} element={Dashboard} />,
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard/>,
+    },
+    ],
     errorElement: <div>404 not found</div>,
   },
   {
@@ -23,7 +25,7 @@ const router = createBrowserRouter([
     path: "/register",
     element: <RegisterForm />,
   },
-]);
+], { basename: "/" });
 
 function App() {
   return (
