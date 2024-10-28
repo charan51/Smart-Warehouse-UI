@@ -5,15 +5,22 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "./components/protectedRoute";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './components/Theme.js';
+import Mainscreen from "./components/Mainscreen.jsx";
 
 const router = createBrowserRouter([
   {
+    //Later uncheck , commented to skip login 
     element: <PrivateRoute />,
-    children: [
+    element: <Mainscreen/>,
+    children: 
+    [
       {
-        path: "/dashboard",
+        path: "dashboard",
         element: <Dashboard/>,
-    },
+      },
     ],
     errorElement: <div>404 not found</div>,
   },
@@ -29,12 +36,15 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="App">
-      <Provider store={store}>
-        <RouterProvider router={router} />
-      </Provider>
+    <ThemeProvider theme ={theme}>
+      <CssBaseline/>
+      <div>
+        <Provider store={store}>
+          <RouterProvider router={router}/>
+        </Provider>
     </div>
+    </ThemeProvider>
+    
   );
 }
-
 export default App;
