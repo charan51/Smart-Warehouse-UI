@@ -15,6 +15,8 @@ function NavigationBar()
     switch(newValue) {
       case 0:
         navigate("/dashboard");
+      case 3:
+          navigate("/barcode");
     }
   };
 

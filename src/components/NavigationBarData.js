@@ -22,6 +22,6 @@ export const navigationBarData = [
   {
     title: 'Barcode',
     icon: <DocumentScannerIcon />,
-    link: '/BarcodeScanner',
+    link: '/barcode',
   },
 ];
