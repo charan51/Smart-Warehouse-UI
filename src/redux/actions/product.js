@@ -3,6 +3,7 @@ export const BARCODE_LOADING = 'BARCODE_LOADING';
 export const BARCODE_SUCCESS = 'BARCODE_SUCCESS';
 export const BARCODE_FAIL = 'BARCODE_FAIL';
 const apiHost = "http://localhost:8080" 
+
 export const searchBarcode = (barcode) => async dispatch => {
     dispatch({
         type: BARCODE_LOADING

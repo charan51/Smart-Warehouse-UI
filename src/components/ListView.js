@@ -8,7 +8,7 @@ function ListView({products,onProductSelect})
 
   const onProductSelected = (product) =>
   {
-    setSelectedProduct(product.id);
+    setSelectedProduct(product.productID);
     onProductSelect(product);
   }
   
@@ -28,7 +28,7 @@ function ListView({products,onProductSelect})
         <TableBody>
           {products.map((product,index) => (
             <TableRow key={index} hover
-            selected={selectedProduct === product.productID}
+            selected={selectedProduct == product.productID}
             onClick={ () => onProductSelected(product)}>
               <TableCell component="th" scope="row">
                 {product.name}

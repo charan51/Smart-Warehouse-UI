@@ -97,8 +97,54 @@ const theme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: 'gray', // Default outline color
+        },
+        root: {
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'darkgray', // Outline color on hover
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: '#E63946', // Outline color when focused
+          },
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        icon: {
+          color: 'darkgray', // Customize dropdown arrow color (optional)
+        },
+      },
+    },
   },
-
+  MuiMenuItem: {
+    styleOverrides: {
+      root: {
+        color: 'black', // Default text color
+        fontSize: '16px', // Default font size
+        '&:hover': {
+          backgroundColor: 'lightgray', // Background color on hover
+        },
+        '&.Mui-selected': {
+          backgroundColor: 'blue', // Background color when selected
+          color: 'white', // Text color when selected
+        },
+        '&.Mui-selected:hover': {
+          backgroundColor: 'darkblue', // Background color when selected and hovered
+        },
+      },
+    },
+  },
+  MuiMenu: {
+    styleOverrides: {
+      paper: {
+        backgroundColor: 'white', // Background color for dropdown menu
+      },
+    },
+  },
 });
 
 export default theme

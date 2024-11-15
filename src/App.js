@@ -11,6 +11,8 @@ import theme from "./components/Theme.js";
 import Mainscreen from "./components/Mainscreen.jsx";
 import Barcode from "./components/Barcode/barcode.jsx";
 import ProductView from "./components/Barcode/productView.jsx";
+import Stocks from "./components/Stocks.jsx";
+
 const router = createBrowserRouter(
   [
     {
@@ -22,13 +24,16 @@ const router = createBrowserRouter(
           path: "dashboard",
           element: <Dashboard />,
         },
-
+        {
+          path: "stocks",
+          element: <Stocks />,
+        },
         {
           path: "/barcode",
           element: <Barcode />,
         },
         {
-          path: "/product/:barcode", 
+          path: "/product/:barcode",
           element: <ProductView />,
         },
       ],

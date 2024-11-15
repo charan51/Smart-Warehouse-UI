@@ -40,6 +40,7 @@ function Barcode() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const product = useSelector((state) => state.product);
+  
   useEffect(() => {
     if (product.loading) {
       setLoading(true);

@@ -1,4 +1,4 @@
-import { Box, Card, Button, CardContent, Typography } from "@mui/material";
+import { Box, Card, Button, CardContent, Typography,Paper } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
@@ -15,14 +15,20 @@ function DetailedView({ selectedProduct }) {
   };
 
   const cardData = [
-    { title: selectedProduct.stock, content: "Count" },
+    {
+      title: selectedProduct.stock,
+      content: "Available",
+      secondaryTitle: "Stock Count:",
+    },
     {
       title: selectedProduct["warehouse.name"],
       content: selectedProduct["warehouse.address"],
+      secondaryTitle: "Warehouse Details : ",
     },
     {
       title: selectedProduct["supplier.name"],
       content: selectedProduct["supplier.address"],
+      secondaryTitle: "Supplier Details : ",
     },
   ];
 
@@ -39,24 +45,23 @@ function DetailedView({ selectedProduct }) {
     "sept",
     "Oct",
     "Nov",
-    "Dec"
+    "Dec",
   ];
 
   return (
     <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
-      <Typography variant="h3" sx={{ color: "text.default" }}>
+      {/* <Typography variant="h3" sx={{ color: "text.default" }}>
         {selectedProduct ? selectedProduct.name : ""}
-      </Typography>
+      </Typography> */}
       <Box sx={{ height: "20vh", width: "100%", marginTop: "10px" }}>
         <Grid container spacing={4} sx={{ mb: 2 }}>
           {cardData.map((card) => (
             <Grid item xs={12} sm={6} md={4} key={card}>
-              <Card sx={{ minHeight: "150px", minWidth: "300px" }}>
-                <CardContent>
-                  <Typography variant="h6">{card.title}</Typography>
-                  <Typography variant="body2">{card.content}</Typography>
-                </CardContent>
-              </Card>
+              <Paper elevation={3} style={{ padding: "16px", backgroundColor: "#ffffff" }}>
+                <Typography variant="h5">{card.secondaryTitle}</Typography>
+                <Typography variant="h6">{card.title}</Typography>
+                <Typography variant="body2">{card.content}</Typography>
+              </Paper>
             </Grid>
           ))}
         </Grid>
