@@ -9,11 +9,12 @@ import lowstockJSON from "../Assets/data/lowstock.json";
 import { getLowStockAction } from "../redux/actions/dashboard.js";
 import { useSelector, useDispatch } from "react-redux";
 
+import Grid from "@mui/material/Grid2";
+import { Padding, Visibility } from "@mui/icons-material";
 const Dashboard = () => {
-
   const [lowstocks, setLowstocks] = useState([]);
   const [product, setProduct] = useState(); // Initialize with the first product
-  
+
   const productSelected = (product) => {
     setProduct(product);
   };
@@ -23,55 +24,37 @@ const Dashboard = () => {
   useEffect(() => {
     disptach(getLowStockAction());
   }, []);
-  
+
   useEffect(() => {
-    console.log(lowStockState.lowstock.data);
-    if(lowStockState.lowstock?.data?.legth > 0)
+    if (!lowStockState.loading && lowStockState.lowstock.data?.length > 0) {
       setLowstocks(lowStockState.lowstock.data);
-    // setProduct(lowStockState.lowstock.data[0]);
+      setProduct(lowStockState.lowstock?.data[0]);
+    }
   }, [lowStockState]);
 
-  useEffect(() => {
-      // console.log(lowstocks);
-    // setProduct(lowStockState.lowstock.data[0]);
-  }, [lowstocks]);
-
   return (
-    // <div>
-    //   <Box sx={{ display: "flex", height: "100%" }}>
-    //     {/* Left section (25%) */}
-    //     <Box sx={{ width: "25%", margin: "5px", bgcolor: "background.dark" }}>
-    //       <Box
-    //         sx={{
-    //           display: "flex",
-    //           height: "98vh",
-    //           bgcolor: "background.dark",
-    //           overflow: "auto",
-    //         }}
-    //       >
-    //         <ListView
-    //           products={lowstocks}
-    //           onProductSelect={productSelected}
-    //         ></ListView>
-    //       </Box>
-    //     </Box>
-    //     {/* Right section (75%) */}
-    //     <Box sx={{ width: "75%", bgcolor: "grey.200", margin: "5px" }}>
-    //       <Box
-    //         sx={{
-    //           display: "flex",
-    //           height: "100%",
-    //           flexDirection: "column",
-    //           bgcolor: "background.dark",
-    //         }}
-    //       >
-    //         <DetailedView selectedProduct={product}></DetailedView>
-    //       </Box>
-    //     </Box>
-    //   </Box>
-    // </div>
-    <>
-    </>
+      <Grid container spacing={0}>
+        {/* Left section (25%) */}
+        <Grid size={3}>
+          <Box
+            sx={{
+              display: "flex",
+              height: "98vh",
+              bgcolor: "background.dark",
+              overflow: "auto",
+            }}
+          >
+            <ListView
+              products={lowstocks}
+              onProductSelect={productSelected}
+            ></ListView>
+          </Box>
+        </Grid>
+        {/* Right section (75%) */}
+        <Grid size={9} style={{background:"white", marginBottom:"5px", marginTop: "5px"}} >
+            <DetailedView selectedProduct={product} ></DetailedView>
+        </Grid>
+      </Grid>
   );
 };
 

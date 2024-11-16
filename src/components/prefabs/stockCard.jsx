@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React, {useState} from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -6,28 +6,35 @@ import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActionArea";
 import Button from "@mui/material/Button";
 import { Box, Modal,Paper  } from "@mui/material";
-import Grid from '@mui/material/Grid2';
-
+import StockModal from "./stockModal";
 export default function StockCard({ data, modalTrigger }) {
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
-    <Card>
+    <Card >
       <CardMedia
         component="img"
         height="140"
         />
-      <CardContent>
+      <CardContent  style={{"height": "200px"}}> 
         <Typography gutterBottom variant="h5" component="div">
           {data.name}
         </Typography>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+         {data.desc}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={modalTrigger} >MORE INFO</Button>
-      </CardActions>
+        <Button size="small" onClick={handleOpenModal} >MORE INFO</Button>
+      </CardActions> 
+      <StockModal onClose={handleCloseModal} isOpen={isModalOpen} data={data}/>
     </Card>
   );
 }

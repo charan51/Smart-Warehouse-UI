@@ -1,39 +1,81 @@
-import { Box, Card, Button, CardContent, Typography,Paper } from "@mui/material";
+import {
+  Box,
+  Card,
+  Button,
+  CardContent,
+  Typography,
+  Paper,
+} from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
 import { BarChart } from "@mui/x-charts/BarChart";
 import Grid from "@mui/material/Grid2";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  flexGrow: 1,
+  ...theme.applyStyles("dark", {
+    backgroundColor: "#1A2027",
+  }),
+}));
 
 function DetailedView({ selectedProduct }) {
   const [activeTab, setActiveTab] = useState(0);
-
+  const [info, setInfo] = useState([]);
+  const [quaterStockIN, setQuaterStockIN] = useState([]);
+  const [quaterStockOUT, setQuaterStockOUT] = useState([]);
   const onStockInButtonPressed = () => {
     setActiveTab(0);
   };
   const onStockOutButtonPressed = () => {
     setActiveTab(1);
   };
-
-  const cardData = [
-    {
-      title: selectedProduct.stock,
-      content: "Available",
-      secondaryTitle: "Stock Count:",
-    },
-    {
-      title: selectedProduct["warehouse.name"],
-      content: selectedProduct["warehouse.address"],
-      secondaryTitle: "Warehouse Details : ",
-    },
-    {
-      title: selectedProduct["supplier.name"],
-      content: selectedProduct["supplier.address"],
-      secondaryTitle: "Supplier Details : ",
-    },
-  ];
-
-  const stockIn = [...selectedProduct.stockIN];
-  const stockOut = [...selectedProduct.stockOut];
+  React.useEffect(() => {
+    if (selectedProduct) {
+      setInfo([
+        {
+          title: selectedProduct['warehouse.name'],
+          content: selectedProduct['warehouse.address'],
+          secondaryTitle: "Warehouse Details : ",
+        },
+        {
+          title: selectedProduct['supplier.name'],
+          content: selectedProduct['supplier.address'],
+          secondaryTitle: "Supplier Details : ",
+        },
+      ]);
+      setQuaterData(selectedProduct);
+    }
+  }, [selectedProduct]);
+  const setQuaterData = (data) => {
+      let sumStockIn = 0;
+      let sumStockOut = 0;
+      let counter = 0;
+      for(let i =0; i<data.stockIN.length; i++) {
+        if(counter < 3)
+        {
+          counter++
+        }
+        else
+        {
+          counter = 0
+          quaterStockIN.push(sumStockIn)
+          setQuaterStockIN([...quaterStockIN, sumStockIn]);
+          setQuaterStockOUT([...quaterStockIN, sumStockOut]);
+          sumStockIn = 0;
+          sumStockOut =  0;
+        }
+        sumStockIn += data.stockIN[i];
+        sumStockOut += data.stockOut[i]
+      }
+  };
+  console.log(quaterStockIN);
   const xLabels = [
     "Jan",
     "Feb",
@@ -47,60 +89,92 @@ function DetailedView({ selectedProduct }) {
     "Nov",
     "Dec",
   ];
-
+  const QuaterLabels = [
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+  ];
   return (
-    <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
-      {/* <Typography variant="h3" sx={{ color: "text.default" }}>
-        {selectedProduct ? selectedProduct.name : ""}
-      </Typography> */}
-      <Box sx={{ height: "20vh", width: "100%", marginTop: "10px" }}>
-        <Grid container spacing={4} sx={{ mb: 2 }}>
-          {cardData.map((card) => (
-            <Grid item xs={12} sm={6} md={4} key={card}>
-              <Paper elevation={3} style={{ padding: "16px", backgroundColor: "#ffffff" }}>
-                <Typography variant="h5">{card.secondaryTitle}</Typography>
-                <Typography variant="h6">{card.title}</Typography>
-                <Typography variant="body2">{card.content}</Typography>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box sx={{ height: "100vh", width: "100%", bgcolor: "background.light" }}>
-        {/* <Box sx={{ display: "flex", gap: 2, margin: "10px" }}>
-          <Button
-            variant={activeTab === 0 ? "contained" : "outlined"}
-            onClick={onStockInButtonPressed}
-            sx={{ flex: 1 }}
-          >
-            Stock In
-          </Button>
-          <Button
-            variant={activeTab === 1 ? "contained" : "outlined"}
-            onClick={onStockOutButtonPressed}
-            sx={{ flex: 1 }}
-          >
-            Stock out
-          </Button>
-        </Box> */}
+    <Stack
+      sx={{
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+      }}
+      spacing={{ xs: 1, sm: 2, md: 4 }}
+      direction="column"
+      useFlexGap
+    >
+      {/* First Item */}
+      <Item>
+        <BarChart
+          height={290}
+          series={[
+            {
+              data:
+                selectedProduct?.stockIN?.length > 0
+                  ? selectedProduct?.stockIN
+                  : [],
+              label: "Stock In",
+              id: "pvId",
+            },
+            {
+              data:
+                selectedProduct?.stockOut?.length > 0
+                  ? selectedProduct?.stockOut
+                  : [],
+              label: "Stock Out",
+              id: "uvId",
+            },
+          ]}
+          xAxis={[{ data: xLabels, scaleType: "band" }]}
+          margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+        />
+      </Item>
 
-        <Box sx={{ width: "100%", height: "75%" }}>
+      {/* Second and Third Items in a Horizontal Row */}
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        <Item style={{ width: "50%" }}>
           <BarChart
-            sx={{
-              width: "100%",
-              height: "60%",
-            }}
+            height={300}
             series={[
-              { data: stockIn, label: "Stock In", id: "pvId" },
-              { data: stockOut, label: "Stock Out", id: "uvId" },
+              {
+                data:
+                  selectedProduct?.stockIN?.length > 0
+                    ? selectedProduct?.stockIN
+                    : [],
+                label: "Stock In",
+                id: "pvId",
+              },
+              {
+                data:
+                  selectedProduct?.stockOut?.length > 0
+                    ? selectedProduct?.stockOut
+                    : [],
+                label: "Stock Out",
+                id: "uvId",
+              },
             ]}
-            xAxis={[{ data: xLabels, scaleType: "band" }]}
+            xAxis={[{ data: QuaterLabels, scaleType: "band" }]}
             margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
           />
-        </Box>
-      </Box>
-    </Box>
+        </Item>
+        <Item style={{ width: "50%" }}>
+          {info.map((card) => (
+            <>
+              <Typography variant="h5">{card.secondaryTitle}</Typography>
+              <Typography variant="h6">{card.title}</Typography>
+              <Typography variant="body2">{card.content}</Typography>
+            </>
+          ))}
+        </Item>
+      </Stack>
+    </Stack>
   );
+  
 }
 
 export default DetailedView;

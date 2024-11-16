@@ -2,7 +2,18 @@ import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Modal,Paper  } from "@mui/material";
 import Grid from '@mui/material/Grid2';
-export default function StockModal({ data, handelOpen }) {
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+export default function StockModal({ data, handelOpen, onClose, isOpen }) {
 
   const cardData = [
     {
@@ -29,11 +40,11 @@ export default function StockModal({ data, handelOpen }) {
   },[handelOpen])
   return (
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={isOpen}
+        onClose={onClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
-        <Box>
+        <Box sx={style}>
           {cardData.map((card) => (
             <Grid item xs={12} sm={6} md={4} key={card}>
               <Paper elevation={3} style={{ padding: "16px", backgroundColor: "#ffffff" }}>

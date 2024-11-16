@@ -11,8 +11,8 @@ import theme from "./components/Theme.js";
 import Mainscreen from "./components/Mainscreen.jsx";
 import Barcode from "./components/Barcode/barcode.jsx";
 import ProductView from "./components/Barcode/productView.jsx";
-import Stocks from "./components/Stocks.jsx";
-
+import Stocks from "./components/Stocks/Stocks.jsx";
+import './App.css'
 const router = createBrowserRouter(
   [
     {
