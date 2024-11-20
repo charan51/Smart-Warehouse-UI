@@ -15,11 +15,12 @@ function Header() {
     <AppBar position="static" sx={{ backgroundColor: "primary.dark" }}>
       <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          <img src={logo} />
+          <img src={logo} width="60" height="50" />
+          <span style={{'fontSize': 'smaller'}}> Smart Inventory Managment</span>
         </Typography>
         <Box display="flex" alignItems="center">
           <Typography color="inherit" style={{ marginRight: "16px" }}>
-            User Name
+            Admin
           </Typography>
           <Button variant="outlined" color="inherit" onClick={handleLogout}>
             Logout
