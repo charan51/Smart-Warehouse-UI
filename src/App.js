@@ -20,10 +20,7 @@ const router = createBrowserRouter(
       element: <PrivateRoute />,
       element: <Mainscreen />,
       children: [
-        {
-          path: "dashboard",
-          element: <Dashboard />,
-        },
+        { path: "/", element: <Dashboard/> },
         {
           path: "stocks",
           element: <Stocks />,
@@ -47,8 +44,9 @@ const router = createBrowserRouter(
       path: "/register",
       element: <RegisterForm />,
     },
+   
   ],
-  { basename: "/" }
+  
 );
 
 function App() {

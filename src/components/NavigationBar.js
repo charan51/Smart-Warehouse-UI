@@ -14,7 +14,7 @@ function NavigationBar() {
 
     switch (newValue) {
       case 0:
-        navigate("/dashboard");
+        navigate("/");
         break;
       case 1:
         navigate("/stocks");

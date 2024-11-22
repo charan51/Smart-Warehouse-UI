@@ -1,5 +1,5 @@
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography} from '@mui/material';
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from 'react';
 
 function ListView({products,onProductSelect})
@@ -11,6 +11,10 @@ function ListView({products,onProductSelect})
     setSelectedProduct(product.productID);
     onProductSelect(product);
   }
+  useEffect(() => {
+    setSelectedProduct(products[0]?.productID);
+  },[products])
+
   
   return(
     <TableContainer component={Paper} sx={{width:'100vh', overflow: 'auto',margin:'5px',marginBottom:'5px'}}>

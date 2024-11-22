@@ -22,7 +22,7 @@ const LoginForm = () => {
     e.preventDefault();
     console.log('On Submit');
     // dispatch(login({ email, password })); Later uncheck the comment
-    navigate("/dashboard")
+    navigate("/")
   };
 
   return (

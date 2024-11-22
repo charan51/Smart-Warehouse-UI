@@ -7,7 +7,7 @@ export const navigationBarData = [
   {
     title: 'Dashboard',
     icon: <DashboardIcon />,
-    link: '/Dashboard',
+    link: '/',
   },
   {
     title: 'Stocks',
