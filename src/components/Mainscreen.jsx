@@ -12,7 +12,7 @@ function Mainscreen() {
         </Grid>
       </Grid>
       <Grid container spacing={0} style={{background: "#8b97a9"}}>
-        <Grid sx={{ bgcolor: "background.dark" }} style={{marginTop: "5px"}} size={{ xs: 12,md:1, lg:1}}>
+        <Grid sx={{ bgcolor: "background.dark" }} style={{marginTop: "5px", background: 'white'}} size={{ xs: 12,md:1, lg:1}}>
           <NavigationBar></NavigationBar>
         </Grid>
         <Grid size={{ xs: 12,md:11, lg:11}}>

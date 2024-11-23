@@ -61,7 +61,7 @@ function Barcode() {
     navigate(`/product/${id}`);
   };
   return (
-    <Grid container justifyContent="center" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center" style={{height: "92vh"}}>
       <Grid size={12} justifyContent="center" alignItems="center">
         <h2 style={{ marginTop: "20px", color: "white", textAlign: "center" }}>
           Scan here!
